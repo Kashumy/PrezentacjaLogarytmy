@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<html>
+<head>
+    <title>Ruby Learning</title>
+</head>
+<body>
+  <style>
+    *{
+      font-family: monospace ;
+      font-size :110%;
+    }
+    html{
+      scale:0.8
+    }
+  </style>
+  
+<div>
+  Pruby : <text id="attempts" ></text>
+</div>  
+<br>
+
+    <div id="slide" style="transform:translate(-50%,-50%); position :absolute ; top:55vh;left :50vw; height :90vh; width :60%">
+        <h1>Pytanie 1</h1>
+        <p>Jak nazywa się krzem w układzie SI?</p>
+        <form id="answer-form">
+            <!-- Dodaj odpowiedzi tutaj -->
+        </form>
+
+    </div>
+        <button style="transform:translate(-50%,0%); position :absolute ; bottom :2%; left :calc(50% + 20vw) ; opacity: 0.6" onclick="checkAnswer()">Sprawdź odpowiedź</button>
+    <script>
+        var currentQuestion = 0;
+        var slides = document.getElementById('slide');
+        var answerForm = document.getElementById('answer-form');
+var  mojaZmienna = 0;
+var questions = [
+  ["Czym jest logarytm?", "Miarą względnej zmiany", "Liczba naturalna", "Podstawą 2", 1],
+
+["Oblicz logarytm 0.9 o podstawie 0.1 ", "0.9.", "9", "-0.9"  , 3],
+["Oblicz logarytm 0.10 o podstawie 0.10 ", "1.", "0.1", "-0.1"  , 3],
+["Oblicz logarytm 9 o podstawie 1 ", "0", "9", "-9"  , 1],
+["Oblicz logarytm 9 o podstawie 0.1 ", "0", "9", "-9"  , 3],
+["Oblicz log2(64) + log2(32)", "6+5=11", "7+4=11", "3+4=7", 1],
+["Oblicz log(4.061954956) o podstawie 30. podpowiedź zrub log (4) o podstawie 30 wykonaj tak aż do pierwszej liczby od kropki i liczbę zaokraglij ", "6", "5.967832", "4"  , 1],
+["Oblicz logarytm 100 o podstawie 10", "3", "10", "2", 3],
+["log(25) o podstawie 5", "2", "5", "3", 1],
+["log(8) o podstawie 2", "1", "4", "3", 3],
+["log(10) o podstawie 10", "4", "1", "8", 2],
+["kto wymyślił logarytmy ", "John napiter","Albert Einstein ","John Napier","Archimedes",3],
+["Ile to √(2/8)*4.5", "1.25","2.25","2","4.50",2],
+
+];
+
+function shuffleQuestions(questionsArray) {
+  for (var i = questionsArray.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = questionsArray[i];
+    questionsArray[i] = questionsArray[j];
+    questionsArray[j] = temp;
+    
+  }
+}
+//alert(questions)
+// Wywołaj funkcję do przetasowania kolejności pytań
+shuffleQuestions(questions);
+        function displayQuestion() {
+            var questionData = questions[currentQuestion];
+            var content = `
+                <h1>Pytanie ${currentQuestion + 1}</h1>
+                <h2>${questionData[0]}</h2>
+            `;
+
+            for (var i = 1; i < questionData.length - 1; i++) {
+                content += `
+                    <label>
+                        <input type="radio" class="answers" name="answer" value="${i - 1}"> ${questionData[i]}
+                    </label>
+                `;
+            }
+
+            slides.innerHTML = content;
+        }
+
+        var currentQuestion = 0;
+var correctAnswers = 0; // Dodaj zmienną na prawidłowe odpowiedzi
+
+// ...
+
+function checkAnswer() {
+    var selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+    if (selectedAnswer) {
+        if (parseInt(selectedAnswer.value) === questions[currentQuestion][questions[currentQuestion].length - 1] - 1) {
+            correctAnswers++; // Zwiększ licznik prawidłowych odpowiedzi
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                displayQuestion();
+                alert3("dobra odpowiedź ")
+                // Tworzenie nowego obiektu Audio
+var audio = new Audio('./good.mp3');
+
+// Odtwarzanie dźwięku
+audio.play();
+
+            } else {
+              var ocena =(2/mojaZmienna)+4
+              if(ocena>6){
+                ocena = 6
+              }
+                slides.innerHTML = `<h1>Gratulacje, ukończyłeś Test  
+                ${Math.floor(ocena)}/6 punktów  z Liczba prub ${mojaZmienna}</h1>`;
+                mojaZmienna=0;
+                zapiszCoDwaSekundy()
+                answerForm.style.display = 'none';
+            }
+        } else {
+            alert2("Zła odpowiedź. Zacznij od nowa.");
+            mojaZmienna++
+            // Tworzenie nowego obiektu Audio
+var audio = new Audio('./invalid.mp3');
+
+// Odtwarzanie dźwięku
+audio.play();
+
+            shuffleQuestions(questions);
+            zapiszCoDwaSekundy()
+            
+            currentQuestion = 0;
+            displayQuestion();
+        }
+    } else {
+        alert2("Wybierz odpowiedź!");
+    }
+}
+
+
+
+        window.onload = function () {
+            displayQuestion();
+        };
+        
+        
+        
+        
+        
+        
+        
+
+
+    </script>
+</body>
+</html>
+<style>
+    /* style.css */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F0F0F000;
+        color: white 
+    }
+
+    #slide {
+        background-color: #121212;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 20px;
+        color: white ;
+        max-width: 600px;
+        margin: 0 auto;
+        
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
+<script>
+  // Funkcja do zapisywania zmiennej w Local Storage co 2 sekundy
+
+function zapiszCoDwaSekundy() {
+  
+  localStorage.setItem("mojaZmienna", mojaZmienna);
+  document.getElementById('attempts').innerHTML = mojaZmienna
+/*  if (mojaZmienna) {
+    mojaZmienna = 0
+  }*/
+  console.log(mojaZmienna )
+}
+
+// Ustaw interwał na 2 sekundy
+//setInterval(zapiszCoDwaSekundy, 200);
+
+// Funkcja do odczytywania zmiennej z Local Storage po załadowaniu strony
+setTimeout(d,100)
+setTimeout(zapiszCoDwaSekundy ,200)
+function d(){
+  // Spróbuj odczytać zmienną z Local Storage
+ mojaZmienna = localStorage.getItem("mojaZmienna");
+
+// Jeśli zmienna jest pusta lub nie istnieje w Local Storage, ustaw ją na 0
+//mojaZmienna = mojaZmienna ? mojaZmienna : 0;
+
+
+// Teraz zmienna `mojaZmienna` ma wartość, która może być zapisana w Local Storage
+//console.log(mojaZmienna);
+
+
+  if (mojaZmienna) {
+    // Zmienna istnieje w Local Storage, możesz ją użyć
+    console.log(mojaZmienna);
+  } else {
+    mojaZmienna=0
+    // Zmienna jeszcze nie istnieje w Local Storage
+    console.log("Brak zapisanej zmiennej.");
+  }
+};
+</script>
+
+<style>
+  /* Styl dla alertu */
+  .alert-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FF00004D;
+    width :100%;
+    height :100%;
+    color: #fff;
+    text-align :center ;
+    
+    align-items :center ;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: none;
+    z-index: 9999;
+  }
+  .alert-box2 {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #00FF494D;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      text-align: center;
+  
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      display: none;
+      z-index: 9999;
+    }
+  .answers{
+    float : left ;
+  }
+</style>
+
+<div class="alert-box" id="myAlert">Alert</div>
+<div class="alert-box2" id="myAlert2">Alert</div>
+ 
+  <script>
+    function alert2(message) {
+      var alertBox = document.getElementById('myAlert');
+      alertBox.textContent = message;
+      alertBox.style.display = 'block';
+      setTimeout(function() {
+        alertBox.style.display = 'none';
+      }, 500);
+    }
+    function alert3(message) {
+      var alertBox2 = document.getElementById('myAlert2');
+      alertBox2.textContent = message;
+      alertBox2.style.display = 'block';
+      setTimeout(function() {
+        alertBox2.style.display = 'none';
+      }, 500);
+    }
+  </script>
+</body>
+</html>

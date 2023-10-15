@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<html onclick="showNextDiv()" >
+<head>
+<style>
+html{
+  position :fixed ;
+  width :100%;
+  height :100%;
+}
+*{
+  font-family : 'Times New Roman', Times;
+  font-size : 15px ;
+}
+  .presentation-container {
+    margin :20px;
+    padding :20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    position :absolute ;
+    display: flex;
+    background :#FFFFFF1F;
+    width :calc(100% - 95px);
+    color: white ;
+    height :calc(100% - 95px);
+    flex-direction: column;
+  }
+  .presentation-div {
+    display: none;
+  }
+</style>
+<style>
+  .ulamek {
+    white-space :nowrap;
+    display: flex;
+    flex-direction: column;
+    margin :0;
+    align-items: center;
+    width: max-content;
+  }
+
+  .line {
+    border-top: 1px solid black;
+    width: 100%;
+  }
+
+  .ulamek div {
+    font-size: 1em;
+    
+    /* Możesz dostosować wielkość tekstu według potrzeb */
+    text-align: center;
+  }
+</style>
+
+
+</head>
+<body>
+<iframe src="./Liblaryparticlesm.html" style="position:absolute; margin: -8px; width :100%;height :100vh;" frameborder="0"></iframe>
+<div class="presentation-container">
+  <div class="presentation-div">
+<pre style="white-space :pre-wrap ; transform:translate(-50%,-50%); top:50vh; left :calc(50vw - 20px); position :absolute ;text-align :center ">
+
+<h4>Prezentacja O Logarytmach </h4>
+ 
+Krystian Popiołek 
+
+
+
+</pre>
+  </div>
+<div class="presentation-div">
+<pre style="white-space :pre-wrap ">
+Na końcu prezentacji będą zadania dla 
+osub kturzy cha sprawdzić swoją wiedzę 
+
+
+</pre>
+</div>
+<div class="presentation-div">
+  Ważne :
+Logarytm jest miarą względnej zmiany
+</div>
+<div class="presentation-div">
+<pre style="white-space :pre-wrap ">
+  Kto wymyślił logarytmy
+
+
+  John Napier (1550-1617): Szkocki matematyk
+  był uważany za twórcę logarytmów. 
+  W 1614 roku gdy miał 64 lata opublikował swoje dzieło 
+  "Mirifici Logarithmorum Canonis Descriptio,"
+  w którym przedstawił pierwszą tabelę logarytmów.
+  Logarytmy pomagały w wykonywaniu skomplikowanych obliczeń, 
+  takich jak mnożenie i dzielenie, za pomocą
+  prostszych operacji dodawania i odejmowania.
+</pre>
+<br><img src="./john-napier.png" class="img2" style=" " alt="">
+</div>
+
+<div class="presentation-div">
+<pre style="white-space :pre-wrap " >
+Logarytm jest funkcją odwrotną do funkcji wykładniczej. Dlatego przydaje się wszędzie tam, gdzie rozwiązuje się równanie wykładnicze  np. do czasu, kiedy rozpad promieniotwórczy doprowadzi do danego stężenia pierwiastka.
+</pre>
+</div>
+  <div class="presentation-div">
+<pre style="white-space :pre-wrap ">
+Jak obliczyć logarytmy ?
+powiedzmy ,że naszym zadaniem jest 
+
+<h5>Log10(100) </h5>
+logarytm 100 o podstawie 10
+więc naszym 
+x=100
+p=10
+
+p²
+10² = 100
+więc odpowiedź to
+logarytm ze 100 o 
+podstawie (p=10) 
+jest równy 2
+<img src="./log.png" id="img1"  alt="">
+</pre>
+<style>
+  @media screen and (orientation: landscape) {
+  
+    /* Stylizacja dla orientacji krajobrazowej */
+    #img1 {
+      width :calc(50vh + 10vw); height :calc(50vh + 10vw); transform:translate(-50%,-50%);
+      position :absolute ;
+      margin-left :0;
+      top:40vh;
+      right :10px;
+      
+    }
+    .img2 {
+      width :calc(40vh + 10vw); height :calc(50vh + 10vw ); transform:translate(-50%,-50%);
+      position :absolute ;
+      margin-left :0;
+      top:40vh;
+      right :-100px;
+      
+    }
+    #test1{
+      transform:translate(0%,-20px); 
+      height :70vh;
+    }
+  
+    /* Dodaj inne style dla krajobrazu */
+  }
+  @media screen and (orientation: portrait ) {
+  /* Stylizacja dla orientacji krajobrazowej */
+  #img1 {
+    width :calc(50vh + 10vw); height :calc(50vh + 10vw); transform:translate(-55%,5%);  margin-left :calc(50vw - 10px)
+  }
+  #test1{
+    height :50vh;
+  }
+  .img2{
+    width :calc(200px - 5vw); height :calc(300px - 15vw);transform:translate(-50%,0%);  margin-left :50vw;
+  }
+
+  /* Dodaj inne style dla krajobrazu */
+}
+
+</style>
+  </div>
+<div class="presentation-div">
+<pre  style="white-space: pre-wrap; margin: 10px;">
+można wytłumaczyć to jeszcze w drugi sposób 
+obliczamy:
+wszystkie możliwe potegi zaczynając od 2 dla 
+naszej podstawy
+aż w końcu
+znajdziemy wynik ruwny tego co
+jest w logarycji
+w tedy naszym wynikiem jest ta potęga kturej użyliśmy 
+
+
+
+<img src="./hwlog.png" style="width:280px;height:220px" class="img2" alt="">
+</pre>
+</div>
+<div class="presentation-div">
+<pre  style="white-space: pre-wrap; margin: 10px;">
+<iframe src="./logarytmy zadania .html" id="test1" style="width :100%;" frameborder="0"></iframe>
+Oto Quiz z Logarytmów ktury zaprogramowałem w JS
+dla uczniów 
+
+
+</pre>
+</div>
+  <div class="presentation-div">
+    <pre style="white-space :pre-wrap ; transform:translate(-50%,-50%); top:50vh; left :calc(50vw - 20px); position :absolute ;text-align :center ">
+
+<h4>Dziękuję za Uwagę </h4>
+
+żródła : książka
+autorzy : Krystian Popiołek 
+Jezyki : Js , Html , KrystianParticlesLiblary
+
+
+[k.p] consout © copyright do not disturbute
+
+moje stronki
+<a href="https://kashumy.github.io/">kashumy.github.io </a>
+<a href="https://wenglon.github.io">wenglon.github.io</a>
+</pre>
+  </div>
+</div>
+
+<script>
+  let currentDivIndex = 0;
+  const divs = document.querySelectorAll(".presentation-div");
+  var fullscreen=0;
+
+  function showNextDiv() {
+    document.documentElement.requestFullscreen()
+    // Tworzenie nowego obiektu Audio
+var audio = new Audio('./hit.ogg');
+
+// Odtwarzanie dźwięku
+audio.play();
+
+    if(fullscreen==1){
+    divs[currentDivIndex].style.display = "none";
+    currentDivIndex++;
+    if (currentDivIndex >= divs.length) {
+      currentDivIndex = 0;
+    }
+    divs[currentDivIndex].style.display = "block";
+    }
+    fullscreen=1
+  }
+
+  divs[currentDivIndex].style.display = "block";
+
+  
+</script>
+
+</body>
+</html>
+
+<!--
+
+<div class="ulamek">
+  <div>3 * 5</div>
+  <div class="line"></div>
+  <div>5 - 6</div>
+</div>
+
+-->

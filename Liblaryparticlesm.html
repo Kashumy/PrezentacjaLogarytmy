@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  <style>
+    body {
+      margin: 0;
+      position :fixed ;
+      overflow: hidden;
+      
+      background :#000000;
+    }
+    
+    #particleContainer {
+      top:0;
+      opacity :0.2;
+      position: fixed ;
+      width: 100%;
+      height:100vh;
+      background-color: #000000;
+      
+      z-index :-1;
+    }
+    .particle {
+      position: fixed ;
+      border-radius: 20%;
+      opacity: 0.2;
+      z-index: 20;
+      /*filter: url("#bm")*/
+      
+    }
+    .custom-particle {
+      position: absolute;
+      background-color: black ;
+      
+      opacity :0.0;
+      
+    }
+    #torch{
+      position: fixed ;
+      z-index :1;
+      transform:translate(-50%,-50%);
+      top:60vh;
+      left :53vw;
+      background :#572F00;
+      width :20px;
+      height :200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particleContainer"></div>
+  <script>
+    const particleContainer = [];
+
+    class Particle {
+      constructor(x, y, lifetime, color, radius, rotationspeed, emitCount, emitLifetime, xoffset, yoffset, radiansOffset, particleGoto, endXOffset, endYOffset, particleMovementSpeed, particleClass,xmat) {
+        this.x = x;
+        this.y = y;
+        this.lifetime = lifetime;
+        this.xmat=xmat
+        this.color = color;
+        this.radius = radius;
+        this.rotationspeed = rotationspeed;
+        this.rotation = 0;
+        this.startTime = Date.now();
+        this.emitCount = emitCount;
+        this.emitLifetime = emitLifetime;
+        this.xoffset = xoffset;
+        this.yoffset = yoffset;
+        this.radiansOffset = radiansOffset;
+        this.particleGoto = particleGoto;
+        this.endXOffset = endXOffset;
+        this.endYOffset = endYOffset;
+        this.particleMovementSpeed = particleMovementSpeed;
+        this.vx = Math.random() * 2 - 1; // Random velocity in the x direction between -1 and 1
+        this.vy = Math.random() * 2 - 1; // Random velocity in the y direction between -1 and 1
+        this.element = document.createElement('div');
+        this.element.className = particleClass || 'particle'; // Use custom class if provided, otherwise use 'particle'
+        this.updateStyle();
+        document.querySelector('html').appendChild(this.element);
+      }
+
+      updateStyle() {
+        if(this.xmat==false){
+        this.element.style.left = this.x  + 'px';
+        this.element.style.top = this.y  + 'px';
+        }else if (this.xmat == true) {
+          this.element.style.left = this.x + 'vw';
+          this.element.style.top = this.y + 'vh';
+        }
+        this.element.style.width = this.radius * 2 + 'px';
+        this.element.style.height = this.radius * 2 + 'px';
+        this.element.style.background = this.color;
+        this.element.style.transform = `rotate(${this.rotation}deg)`;
+        this.element.style.opacity = this.lifetime / this.emitLifetime;
+      }
+
+      update() {
+        const currentTime = Date.now();
+        const deltaTime = (currentTime - this.startTime) / 1000;
+        this.rotation += this.rotationspeed * deltaTime;
+
+        if (deltaTime >= this.lifetime) {
+          this.element.remove();
+          const index = particleContainer.indexOf(this);
+          particleContainer.splice(index, 1);
+        }
+
+        if (this.particleGoto) {
+          this.x += this.vx * this.particleMovementSpeed; // Update particle's x position based on its velocity
+          this.y += this.vy * this.particleMovementSpeed; // Update particle's y position based on its velocity
+        } else {
+          const angle = Math.atan2(this.endYOffset, this.endXOffset);
+          this.x += Math.cos(angle) * this.particleMovementSpeed; // Move towards the specified x direction
+          this.y += Math.sin(angle) * this.particleMovementSpeed; // Move towards the specified y direction
+        }
+
+        if (this.emitCount > 0 && deltaTime >= this.emitLifetime) {
+          this.emitCount--;
+          const radians = this.radiansOffset + (Math.random() - 0.5) * Math.PI;
+          let x = this.x + this.xoffset;
+          let y = this.y + this.yoffset;
+          if (this.particleGoto) {
+            x = this.x - this.xoffset;
+            y = this.y - this.yoffset;
+          }
+          x += this.endXOffset;
+          y += this.endYOffset;
+          createParticle(x, y, this.lifetime, this.color, this.radius, this.rotationspeed, 0, this.emitLifetime, this.xoffset, this.yoffset, radians, this.particleGoto, this.endXOffset, this.endYOffset, this.particleMovementSpeed, this.particleClass);
+        }
+      }
+    }
+
+    function createParticle(x, y, lifetime, color, radius, rotationspeed, emitCount = 0, emitLifetime = 0, xoffset = 0, yoffset = 0, radiansOffset = 0, particleGoto = false, endXOffset = 0, endYOffset = 0, particleMovementSpeed = 1, particleClass, xmat = false ) {
+      const particle = new Particle(x, y, lifetime, color, radius, rotationspeed, emitCount, emitLifetime, xoffset, yoffset, radiansOffset, particleGoto, endXOffset, endYOffset, particleMovementSpeed, particleClass, xmat);
+      particleContainer.push(particle);
+    }
+
+    function emitParticles(x, y, particleCount, emitLifetime, color, radius, rotationspeed, xoffset, yoffset, radiansOffset, particleGoto, endXOffset, endYOffset, particleMovementSpeed, particleClass,xmat) {
+      for (let i = 0; i < particleCount; i++) {
+        const xmath=xmat 
+        
+        const randomX = x + (Math.random() - 0.5) * xoffset;
+        const randomY = y + (Math.random() - 0.5) * yoffset;
+        const randomLifetime = emitLifetime + Math.random() * 0.5;
+        const randomRotSpeed = rotationspeed + (Math.random() - 0.5) * 2;
+        const radians = radiansOffset + (Math.random() - 0.5) * Math.PI;
+        createParticle(randomX, randomY, randomLifetime, color, radius, randomRotSpeed, 0, emitLifetime, xoffset, yoffset, radians, particleGoto, endXOffset, endYOffset, particleMovementSpeed, particleClass,xmath);
+      }
+    }
+
+    function updateParticles() {
+      for (let i = 0; i < particleContainer.length; i++) {
+        const particle = particleContainer[i];
+        particle.update();
+        particle.updateStyle();
+      }
+
+      requestAnimationFrame(updateParticles);
+    }
+
+    function initialize() {
+      // Example usage:
+      
+
+      setInterval(() => {
+       /* emitParticles(300, 200, 1, 6.5, "rgba(0, 255, 255, 0.1)", 8, 1.0, 50, 50, 0, true, 1000, 100, 4, 'custom-particle',false);*/
+        
+        emitParticles(49, 50, 0.02, 2.5, "rgba(255, 0, 0, 0.5)", 20, 1.0, 10, 10, 10, true , 0, -400, 0.35, 'particle',true);
+emitParticles(49, 50, 0.02, 2.5, "rgba(0, 255, 0, 0.5)", 20, 1.0, 10, 10, 10, true , 0, -400, 0.35, 'particle',true);
+emitParticles(49, 50, 0.02, 2.5, "rgba(0, 0, 255, 0.5)", 20, 1.0, 10, 10, 10, true , 0, -400, 0.35, 'particle',true);
+emitParticles()
+      }, 500);
+
+      // Additional example particles:
+      
+
+      updateParticles();
+    }
+
+    initialize();
+  </script>
+</body>
+
+</html>
